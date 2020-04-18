@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TOOLSDIR=$(pwd)
+TOOLSDIR=$(pwd)/lib/tools
 SCRIPT=create_mail_user_OpenLDAP.sh
 
 sed -i "s/ezlife-password/$2/g" $TOOLSDIR/$SCRIPT
