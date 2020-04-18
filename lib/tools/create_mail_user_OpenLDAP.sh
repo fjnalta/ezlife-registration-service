@@ -104,9 +104,8 @@ add_new_user()
 {
     USERNAME="$(echo $1 | tr [A-Z] [a-z])"
     MAIL="$( echo $2 | tr [A-Z] [a-z])"
-    UID="$( echo $3 | tr [A-Z] [a-z])"
-    CN="$( echo $4 | tr [A-Z] [a-z])"
-    SN="$( echo $5 | tr [A-Z] [a-z])"
+    CN="$( echo $3 | tr [A-Z] [a-z])"
+    SN="$( echo $4 | tr [A-Z] [a-z])"
 
     maildir="${DOMAIN_NAME}/$(hash_maildir ${USERNAME})"
 
@@ -149,7 +148,7 @@ userPassword: ${PASSWD}
 cn: ${CN}
 sn: ${SN}
 givenName: ${USERNAME}
-uid: ${UID}
+uid: ${USERNAME}
 shadowLastChange: ${DAYS_SINCE_EPOCH}
 amavisLocal: TRUE
 enabledService: internal
@@ -199,7 +198,7 @@ usage()
     echo -e "\t$0 DOMAIN USERNAME UID CN SN"
 }
 
-if [ $# -lt 5 ]; then
+if [ $# -lt 4 ]; then
     usage
 else
     # Promopt to check settings.
@@ -209,12 +208,11 @@ else
     DOMAIN_NAME="$(echo $1 | tr '[A-Z]' '[a-z]')"
     USERNAME="$(echo $2 | tr [A-Z] [a-z])"
     MAIL="${USERNAME}@${DOMAIN_NAME}"
-    UID="$( echo $3 | tr [A-Z] [a-z])"
-    CN="$( echo $4 | tr [A-Z] [a-z])"
-    SN="$( echo $5 | tr [A-Z] [a-z])"
+    CN="$( echo $3 | tr [A-Z] [a-z])"
+    SN="$( echo $4 | tr [A-Z] [a-z])"
 
     # Add new user in LDAP.
-    add_new_user ${USERNAME} ${MAIL} ${UID} ${CN} ${SN}
+    add_new_user ${USERNAME} ${MAIL} ${CN} ${SN}
 
     # Send welcome msg to new user.
     [ X"${SEND_WELCOME_MSG}" == X'YES' ] && send_welcome_mail ${MAIL}
