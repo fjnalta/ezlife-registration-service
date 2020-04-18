@@ -1,0 +1,23 @@
+{
+  "name": "ezlife-registration-service",
+  "version": "1.0.0",
+  "description": "registration handler for ezlife.eu",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.ezlife.eu/ajo/ezlife-registration-service.git"
+  },
+  "author": "Philipp Minges",
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "^4.4.1",
+    "ejs": "^3.0.2",
+    "express": "^4.17.1",
+    "jquery": "^3.5.0",
+    "popper.js": "^1.16.1",
+    "tether": "^1.4.7"
+  }
+}
