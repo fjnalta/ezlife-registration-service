@@ -94,7 +94,6 @@ function checkEverythingValid() {
 
 // TODO - handle response
 function registerUser() {
-    console.log('called');
     $("#registerBtn").prop("disabled", true);
     $.ajax({
         type: 'POST',
