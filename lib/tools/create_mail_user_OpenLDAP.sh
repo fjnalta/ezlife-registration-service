@@ -2,43 +2,23 @@
 
 # Author:   Philipp Minges
 # Purpose:  Add new OpenLDAP user for postfix mail server.
-# Description: Original iRedMail addUser Script modded for ezlife.eu
-
-# --------------------------- USAGE --------------------------------
-# 1) Change variables below to fit your env:
-#
-#   - In 'Global Setting' section:
-#       * STORAGE_BASE_DIRECTORY
-#
-#   - In 'LDAP Setting' section:
-#       * LDAP_SUFFIX
-#       * BINDDN
-#       * BINDPW
-#       * QUOTA
-#
 
 TOOLSDIR=$(pwd)/lib/tools
 
-# Source functions.
+# Source functions
 . $TOOLSDIR/global
 . $TOOLSDIR/core
 
-# ----------------------------------------------
-# ------------ Global Setting ------------------
-# ----------------------------------------------
+# -----------------------------------------------
+# ------------ Global Settings ------------------
+# -----------------------------------------------
 # Storage base directory used to store users' mail.
 # mailbox of LDAP user will be:
-#    ${STORAGE_BASE_DIRECTORY}/${DOMAIN_NAME}/${USERNAME}/
-# Such as:
-#    /var/vmail/vmail1/iredmail.org/zhb/
-#   -------------------|===========|-----|
-#   STORAGE_BASE_DIRECTORY|DOMAIN_NAME|USERNAME
-#
 STORAGE_BASE_DIRECTORY="/var/vmail/vmail1"
 
-# ------------------------------------------------------------------
-# -------------------------- LDAP Setting --------------------------
-# ------------------------------------------------------------------
+# -------------------------------------------------------------------
+# -------------------------- LDAP Settings --------------------------
+# -------------------------------------------------------------------
 LDAP_SUFFIX="dc=ezlife,dc=eu"
 
 # Setting 'BASE_DN'.
@@ -46,8 +26,8 @@ BASE_DN="o=domains,${LDAP_SUFFIX}"
 
 # Setting 'DOMAIN_NAME' and DOMAIN_DN':
 #     * DOMAIN will be used in mail address: ${USERNAME}@${DOMAIN}
-#    * DOMAIN_DN will be used in LDAP dn.
-DOMAIN_NAME="$1"
+#     * DOMAIN_DN will be used in LDAP dn.
+DOMAIN_NAME="ezlife.eu"
 DOMAIN_DN="domainName=${DOMAIN_NAME}"
 OU_USER_DN="ou=Users"
 
@@ -65,10 +45,8 @@ QUOTA='104857600'
 # Default MTA Transport (Defined in postfix master.cf).
 TRANSPORT='dovecot'
 
-# Password setting.
+# Password scheme.
 PASSWORD_SCHEME='SSHA'   # MD5, SSHA. SSHA is recommended.
-DEFAULT_PASSWD='ezlife-password'
-USE_DEFAULT_PASSWD='YES'
 
 # ------------------------------------------------------------------
 # -------------------- Pure-FTPd Integration -----------------------
@@ -105,6 +83,7 @@ DAYS_SINCE_EPOCH="$((EPOCH_SECONDS / 24 / 60 / 60))"
 add_new_user()
 {
     USERNAME="$(echo $1 | tr [A-Z] [a-z])"
+    PASSWORD="$(echo $2)"
     MAIL="$( echo $2 | tr [A-Z] [a-z])"
     CN="$( echo $3 | tr [A-Z] [a-z])"
     SN="$( echo $4 | tr [A-Z] [a-z])"
@@ -112,11 +91,7 @@ add_new_user()
     maildir="${DOMAIN_NAME}/$(hash_maildir ${USERNAME})"
 
     # Generate user password.
-    if [ X"${USE_DEFAULT_PASSWD}" == X'YES' ]; then
-        PASSWD="$(python2 $TOOLSDIR/generate_password_hash.py ${PASSWORD_SCHEME} ${DEFAULT_PASSWD})"
-    else
-        PASSWD="$(python2 $TOOLSDIR/generate_password_hash.py ${PASSWORD_SCHEME} ${USERNAME})"
-    fi
+    PASSWD="$(python2 $TOOLSDIR/generate_password_hash.py ${PASSWORD_SCHEME} ${PASSWORD})"
 
     if [ X"${PUREFTPD_INTEGRATION}" == X'YES' ]; then
         LDIF_PUREFTPD_USER="objectClass: PureFTPdUser
@@ -194,28 +169,19 @@ send_welcome_mail()
     echo "${WELCOME_MSG_BODY}" | mail -s "${WELCOME_MSG_SUBJECT}" ${MAIL}
 }
 
-usage()
-{
-    echo "Usage:"
-    echo -e "\t$0 DOMAIN USERNAME UID CN SN"
-}
+# ----------------------------------------
+# ------------ Start Script --------------
+# ----------------------------------------
 
-if [ $# -lt 4 ]; then
-    usage
-else
-    # Promopt to check settings.
-    [ X"${LDAP_SUFFIX}" == X"dc=example,dc=com" ] && echo "You should change 'LDAP_SUFFIX' in $0."
+# Get Parameters.
+USERNAME="$(echo $1 | tr [A-Z] [a-z])"
+PASSWORD="$(echo $2)"
+MAIL="${USERNAME}@${DOMAIN_NAME}"
+CN="$( echo $3 | tr [A-Z] [a-z])"
+SN="$( echo $4 | tr [A-Z] [a-z])"
 
-    # Get Parameters.
-    DOMAIN_NAME="$(echo $1 | tr '[A-Z]' '[a-z]')"
-    USERNAME="$(echo $2 | tr [A-Z] [a-z])"
-    MAIL="${USERNAME}@${DOMAIN_NAME}"
-    CN="$( echo $3 | tr [A-Z] [a-z])"
-    SN="$( echo $4 | tr [A-Z] [a-z])"
+# Add new user in LDAP.
+add_new_user ${USERNAME} ${PASSWORD} ${MAIL} ${CN} ${SN}
 
-    # Add new user in LDAP.
-    add_new_user ${USERNAME} ${MAIL} ${CN} ${SN}
-
-    # Send welcome msg to new user.
-    [ X"${SEND_WELCOME_MSG}" == X'YES' ] && send_welcome_mail ${MAIL}
-fi
+# Send welcome msg to new user.
+[ X"${SEND_WELCOME_MSG}" == X'YES' ] && send_welcome_mail ${MAIL}
