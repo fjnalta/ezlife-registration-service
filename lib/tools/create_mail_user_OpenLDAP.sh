@@ -67,7 +67,7 @@ TRANSPORT='dovecot'
 
 # Password setting.
 PASSWORD_SCHEME='SSHA'   # MD5, SSHA. SSHA is recommended.
-DEFAULT_PASSWD='wutz'
+DEFAULT_PASSWD='ezlife-password'
 USE_DEFAULT_PASSWD='YES'
 
 # ------------------------------------------------------------------
