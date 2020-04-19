@@ -1,8 +1,14 @@
 $(document).ready(function () {
+    handleGoogleReCaptcha();
+
     checkUserDetails();
     checkPasswords();
     checkEverythingValid();
 });
+
+function handleGoogleReCaptcha(){
+
+}
 
 function checkUserDetails() {
     $("#username").on("keyup", function () {
@@ -92,28 +98,56 @@ function checkEverythingValid() {
     });
 }
 
-// TODO - handle response
 function registerUser() {
     $("#registerBtn").prop("disabled", true);
-    $.ajax({
-        type: 'POST',
-        url: '/register',
-        data: {
-            'username' : $('#username').val(),
-            'name' : $('#name').val(),
-            'surname' : $('#surname').val(),
-            'email' : $('#email').val(),
-            'password' : $('#password').val(),
-            'password2' : $('#password2').val()
-        },
-        success: function(){
-            //showRegistrationSuccessfulAlert();
-            setTimeout(function(){
-                location.reload();
-            }, 1000)
-        },
-        error: function() {
-            //showRegistrationFailAlert();
-        }
+    grecaptcha.ready(function() {
+        grecaptcha.execute('6LcRJusUAAAAAPNYUKeKTunJqjeUdzDFNPsFjWnS', {action: 'homepage'}).then(function(token) {
+            $.ajax({
+                type: 'POST',
+                url: '/register',
+                data: {
+                    'username' : $('#username').val(),
+                    'name' : $('#name').val(),
+                    'surname' : $('#surname').val(),
+                    'email' : $('#email').val(),
+                    'password' : $('#password').val(),
+                    'password2' : $('#password2').val(),
+                    'token': token
+                },
+                success: function(){
+                    $("#registrationStatus").text("Registrierung erfolgreich! - Wenn Sie nicht automatisch weitergeleitet werden, laden Sie bitte die Seite neu");
+                    $("#registrationStatus").css("font-weight","Bold");
+                    $("#registrationStatus").css('color', 'green');
+                    disableFields();
+                    setTimeout(function(){
+                        location.href('/');
+                    }, 1000)
+                },
+                error: function() {
+                    $("#registrationStatus").text("Registrierung fehlgeschlagen! - Bitte versuchen Sie einen anderen Benutzernamen");
+                    $("#registrationStatus").css("font-weight","Bold");
+                    $("#registrationStatus").css('color', 'red');
+                    emptyFields();
+                }
+            });
+        });
     });
+}
+
+function emptyFields() {
+    $("#username").empty();
+    $("#name").empty();
+    $("#surname").empty();
+    $("#email").empty();
+    $("#password").empty();
+    $("#password2").empty();
+}
+
+function disableFields() {
+    $("#username").prop('disabled', true);
+    $("#name").prop('disabled', true);
+    $("#surname").prop('disabled', true);
+    $("#email").prop('disabled', true);
+    $("#password").prop('disabled', true);
+    $("#password2").prop('disabled', true);
 }

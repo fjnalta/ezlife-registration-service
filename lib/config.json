@@ -1,4 +1,15 @@
 {
   "port": 3001,
-  "webContentDir": "/public"
+  "webContentDir": "/public",
+  "reCaptchaSiteKey": "6LcRJusUAAAAAJV9fF_cRDcvsYIJ1JXax9fByiqB",
+  "keycloak": {
+    "realm": "ezlife",
+    "auth-server-url": "https://kc.ezlife.eu/auth/",
+    "ssl-required": "external",
+    "resource": "reg.ezlife.eu",
+    "credentials": {
+      "secret": "b932e88a-1e03-43d8-88a3-84e1dd01dd74"
+    },
+    "confidential-port": 0
+  }
 }
