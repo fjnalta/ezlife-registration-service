@@ -108,9 +108,9 @@ function registerUser() {
         },
         success: function(){
             //showRegistrationSuccessfulAlert();
-            //setTimeout(function(){
-            //    location.reload();
-            //}, 3000)
+            setTimeout(function(){
+                location.reload();
+            }, 1000)
         },
         error: function() {
             //showRegistrationFailAlert();
