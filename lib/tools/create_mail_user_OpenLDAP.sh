@@ -17,9 +17,11 @@
 #       * QUOTA
 #
 
+TOOLSDIR=$(pwd)/lib/tools
+
 # Source functions.
-. global
-. core
+. $TOOLSDIR/global
+. $TOOLSDIR/core
 
 # ----------------------------------------------
 # ------------ Global Setting ------------------
@@ -111,9 +113,9 @@ add_new_user()
 
     # Generate user password.
     if [ X"${USE_DEFAULT_PASSWD}" == X'YES' ]; then
-        PASSWD="$(python2 ./generate_password_hash.py ${PASSWORD_SCHEME} ${DEFAULT_PASSWD})"
+        PASSWD="$(python2 $TOOLSDIR/generate_password_hash.py ${PASSWORD_SCHEME} ${DEFAULT_PASSWD})"
     else
-        PASSWD="$(python2 ./generate_password_hash.py ${PASSWORD_SCHEME} ${USERNAME})"
+        PASSWD="$(python2 $TOOLSDIR/generate_password_hash.py ${PASSWORD_SCHEME} ${USERNAME})"
     fi
 
     if [ X"${PUREFTPD_INTEGRATION}" == X'YES' ]; then
