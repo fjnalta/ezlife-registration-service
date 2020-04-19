@@ -39,7 +39,7 @@ function checkUserDetails() {
 }
 
 function checkPasswords() {
-    $("#password").on("focusout", function () {
+    $("#password").on("keyup", function () {
         if ($(this).val() != $("#password2").val()) {
             $("#password2").removeClass("is-valid").addClass("is-invalid");
         } else {
