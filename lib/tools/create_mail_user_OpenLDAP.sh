@@ -84,9 +84,9 @@ add_new_user()
 {
     USERNAME="$(echo $1 | tr [A-Z] [a-z])"
     PASSWORD="$(echo $2)"
-    MAIL="$( echo $2 | tr [A-Z] [a-z])"
-    CN="$( echo $3 | tr [A-Z] [a-z])"
-    SN="$( echo $4 | tr [A-Z] [a-z])"
+    MAIL="$( echo $3 | tr [A-Z] [a-z])"
+    CN="$( echo $4 | tr [A-Z] [a-z])"
+    SN="$( echo $5 | tr [A-Z] [a-z])"
 
     maildir="${DOMAIN_NAME}/$(hash_maildir ${USERNAME})"
 
