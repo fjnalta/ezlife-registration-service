@@ -25,6 +25,9 @@ const captchaHandler = new CaptchaHandler();
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+// reverse proxy configuration
+app.set('trust proxy', '127.0.0.1');
+
 // configure webserver
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -44,6 +47,7 @@ app.use('/node_modules', express.static('node_modules'));
 
 // set public router
 app.get('/', keycloak.protect(), (req, res) => {
+    //console.log(req.kauth.grant.access_token.content);
     res.render('index', {
         token : req.kauth.grant.access_token.content
     });
