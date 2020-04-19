@@ -48,14 +48,6 @@ TRANSPORT='dovecot'
 # Password scheme.
 PASSWORD_SCHEME='SSHA'   # MD5, SSHA. SSHA is recommended.
 
-# ------------------------------------------------------------------
-# -------------------- Pure-FTPd Integration -----------------------
-# ------------------------------------------------------------------
-# Add objectClass and attributes for pure-ftpd integration.
-# Note: You must inlucde pureftpd.schema in OpenLDAP slapd.conf first.
-PUREFTPD_INTEGRATION='NO'
-FTP_BASE_DIRECTORY='/home/ftp'
-
 # -------------------------------------------
 # ----------- End Global Setting ------------
 # -------------------------------------------
@@ -83,21 +75,7 @@ add_new_user()
     # Generate user password.
     PASSWD="$(python2 $TOOLSDIR/generate_password_hash.py ${PASSWORD_SCHEME} ${PASSWORD})"
 
-    if [ X"${PUREFTPD_INTEGRATION}" == X'YES' ]; then
-        LDIF_PUREFTPD_USER="objectClass: PureFTPdUser
-FTPStatus: enabled
-FTPQuotaFiles: 50
-FTPQuotaMBytes: 10
-FTPDownloadBandwidth: 50
-FTPUploadBandwidth: 50
-FTPDownloadRatio: 5
-FTPUploadRatio: 1
-FTPHomeDir: ${FTP_BASE_DIRECTORY}/${DOMAIN_NAME}/${USERNAME}/
-"
-    else
-        LDIF_PUREFTPD_USER=''
-    fi
-
+    # create LDAP User
     ldapadd -x -D "${BINDDN}" -w "${BINDPW}" <<EOF
 dn: mail=${MAIL},${OU_USER_DN},${DOMAIN_DN},${BASE_DN}
 objectClass: inetOrgPerson
@@ -147,7 +125,6 @@ enabledService: recipientbcc
 enabledService: shadowaddress
 enabledService: displayedInGlobalAddressBook
 enabledService: sogo
-${LDIF_PUREFTPD_USER}
 EOF
 }
 
