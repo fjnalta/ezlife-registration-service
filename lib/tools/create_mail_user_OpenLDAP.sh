@@ -60,7 +60,7 @@ BINDPW='tERRUCJyzpNEH3wI5nY5SwkRXKyhEX'
 
 # ---------- Virtual Domains & Users --------------
 # Set default quota for LDAP users: 104857600 = 100M
-QUOTA='1048576000'
+QUOTA='104857600'
 
 # Default MTA Transport (Defined in postfix master.cf).
 TRANSPORT='dovecot'
