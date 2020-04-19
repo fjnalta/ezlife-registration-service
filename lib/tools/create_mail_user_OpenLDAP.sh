@@ -56,16 +56,6 @@ PASSWORD_SCHEME='SSHA'   # MD5, SSHA. SSHA is recommended.
 PUREFTPD_INTEGRATION='NO'
 FTP_BASE_DIRECTORY='/home/ftp'
 
-# ------------------------------------------------------------------
-# ------------------------- Welcome Msg ----------------------------
-# ------------------------------------------------------------------
-# Send a welcome mail after user created.
-SEND_WELCOME_MSG='NO'
-
-# Set welcome mail info.
-WELCOME_MSG_SUBJECT="Welcome!"
-WELCOME_MSG_BODY="Welcome, new user."
-
 # -------------------------------------------
 # ----------- End Global Setting ------------
 # -------------------------------------------
@@ -161,14 +151,6 @@ ${LDIF_PUREFTPD_USER}
 EOF
 }
 
-send_welcome_mail()
-{
-    MAIL="$1"
-    echo "Send a welcome mail to new user: ${MAIL}"
-
-    echo "${WELCOME_MSG_BODY}" | mail -s "${WELCOME_MSG_SUBJECT}" ${MAIL}
-}
-
 # ----------------------------------------
 # ------------ Start Script --------------
 # ----------------------------------------
@@ -182,6 +164,3 @@ SN="$( echo $4 | tr [A-Z] [a-z])"
 
 # Add new user in LDAP.
 add_new_user ${USERNAME} ${PASSWORD} ${MAIL} ${CN} ${SN}
-
-# Send welcome msg to new user.
-[ X"${SEND_WELCOME_MSG}" == X'YES' ] && send_welcome_mail ${MAIL}
