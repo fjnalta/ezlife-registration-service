@@ -57,9 +57,6 @@ app.get('/register', keycloak.checkSso(), registrationHandler.checkLogin);
 
 app.post('/register', inputHandler.handleRegistrationInput, captchaHandler.verifyToken, registrationHandler.register);
 
-// keycloak automatically catches calls to /logout
-app.post('/logout', registrationHandler.logout);
-
 // start server
 app.listen(config.port, function () {
     console.log('Server started at Port ' + config.port);
