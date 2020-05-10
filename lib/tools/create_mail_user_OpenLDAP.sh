@@ -67,7 +67,7 @@ add_new_user()
     USERNAME="$(echo $1 | tr [A-Z] [a-z])"
     PASSWORD="$(echo $2)"
     MAIL="$( echo $3 | tr [A-Z] [a-z])"
-    CN="$( echo $4 | tr [A-Z] [a-z])"
+    GIVENNAME="$( echo $4 | tr [A-Z] [a-z])"
     SN="$( echo $5 | tr [A-Z] [a-z])"
     UIDNUMBER="$(echo $6)"
 
@@ -94,9 +94,9 @@ mailMessageStore: ${STORAGE_NODE}/${maildir}
 mail: ${MAIL}
 mailQuota: ${QUOTA}
 userPassword: ${PASSWD}
-cn: ${CN}
+cn: ${USERNAME}
 sn: ${SN}
-givenName: ${USERNAME}
+givenName: ${GIVENNAME}
 uid: ${USERNAME}
 shadowLastChange: ${DAYS_SINCE_EPOCH}
 amavisLocal: TRUE
@@ -140,7 +140,7 @@ EOF
 USERNAME="$(echo $1 | tr [A-Z] [a-z])"
 PASSWORD="$(echo $2)"
 MAIL="${USERNAME}@${DOMAIN_NAME}"
-CN="$( echo $3 | tr [A-Z] [a-z])"
+GIVENNAME="$( echo $3 | tr [A-Z] [a-z])"
 SN="$( echo $4 | tr [A-Z] [a-z])"
 
 # Get LDAP-uidNumber
@@ -152,7 +152,7 @@ else
 fi
 
 # Add new user in LDAP.
-add_new_user ${USERNAME} ${PASSWORD} ${MAIL} ${CN} ${SN} ${UIDNUMBER}
+add_new_user ${USERNAME} ${PASSWORD} ${MAIL} ${GIVENNAME} ${SN} ${UIDNUMBER}
 
 # increment LDAP-uidNumber
 UIDNUMBER=$((UIDNUMBER+1))
