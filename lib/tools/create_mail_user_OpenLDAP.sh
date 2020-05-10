@@ -69,6 +69,7 @@ add_new_user()
     MAIL="$( echo $3 | tr [A-Z] [a-z])"
     CN="$( echo $4 | tr [A-Z] [a-z])"
     SN="$( echo $5 | tr [A-Z] [a-z])"
+    UIDNUMBER="$(echo $6)"
 
     maildir="${DOMAIN_NAME}/$(hash_maildir ${USERNAME})"
 
@@ -76,13 +77,16 @@ add_new_user()
     PASSWD="$(python2 $TOOLSDIR/generate_password_hash.py ${PASSWORD_SCHEME} ${PASSWORD})"
 
     # create LDAP User
-    ldapadd -x -D "${BINDDN}" -w "${BINDPW}" <<EOF
-dn: mail=${MAIL},${OU_USER_DN},${DOMAIN_DN},${BASE_DN}
+    ldapadd -x -D "${BINDDN}" -w "${BINDPW}"<<EOF
+dn: uid=${USERNAME},${OU_USER_DN},${DOMAIN_DN},${BASE_DN}
+objectClass: posixAccount
 objectClass: inetOrgPerson
 objectClass: shadowAccount
 objectClass: amavisAccount
 objectClass: mailUser
 objectClass: top
+gidNumber: 10000
+uidNumber: ${UIDNUMBER}
 accountStatus: active
 storageBaseDirectory: ${STORAGE_BASE}
 homeDirectory: ${STORAGE_BASE_DIRECTORY}/${maildir}
@@ -138,6 +142,7 @@ PASSWORD="$(echo $2)"
 MAIL="${USERNAME}@${DOMAIN_NAME}"
 CN="$( echo $3 | tr [A-Z] [a-z])"
 SN="$( echo $4 | tr [A-Z] [a-z])"
+UIDNUMBER="$(echo $5)"
 
 # Add new user in LDAP.
-add_new_user ${USERNAME} ${PASSWORD} ${MAIL} ${CN} ${SN}
+add_new_user ${USERNAME} ${PASSWORD} ${MAIL} ${CN} ${SN} ${UIDNUMBER}
