@@ -142,7 +142,18 @@ PASSWORD="$(echo $2)"
 MAIL="${USERNAME}@${DOMAIN_NAME}"
 CN="$( echo $3 | tr [A-Z] [a-z])"
 SN="$( echo $4 | tr [A-Z] [a-z])"
-UIDNUMBER="$(echo $5)"
+
+# Get LDAP-uidNumber
+if [ ! -f $TOOLSDIR/currentUser ]; then
+    echo "10000" > $TOOLSDIR/currentUser
+    UIDNUMBER=`cat $TOOLSDIR/currentUser`
+else
+    UIDNUMBER=`cat $TOOLSDIR/currentUser`
+fi
 
 # Add new user in LDAP.
 add_new_user ${USERNAME} ${PASSWORD} ${MAIL} ${CN} ${SN} ${UIDNUMBER}
+
+# increment LDAP-uidNumber
+UIDNUMBER=$((UIDNUMBER+1))
+echo $UIDNUMBER > $TOOLSDIR/currentUser
