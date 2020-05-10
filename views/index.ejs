@@ -17,10 +17,28 @@
     <br>
     <div class="row">
         <div class="col">
+            <h2>Account Information</h2>
             <p>Username: <%= token.preferred_username %></p>
             <p>Given Name: <%= token.given_name %></p>
             <p>Surname: <%= token.family_name %></p>
             <p>E-Mail: <%= token.email %></p>
+        </div>
+    </div>
+    <br>
+    <div class="dropdown-divider"></div>
+    <br>
+
+    <div class="row">
+        <div class="col">
+            <h2>Email Settings</h2>
+            <h3>Ausgehende E-Mail (SMTP)</h3>
+            <p><strong>Host:</strong> ezlife.eu </p>
+            <p><strong>Port:</strong> 587</p>
+            <p><strong>Transportverschlüsselung:</strong> Automatisch</p>
+            <h3>Eingehende E-Mail (IMAP)</h3>
+            <p><strong>Host:</strong> ezlife.eu </p>
+            <p><strong>Port:</strong> 993</p>
+            <p><strong>Transportverschlüsselung:</strong> SSL/TLS</p>
         </div>
     </div>
 
