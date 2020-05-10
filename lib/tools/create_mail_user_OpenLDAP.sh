@@ -95,10 +95,9 @@ mail: ${MAIL}
 mailQuota: ${QUOTA}
 maildrop: ${STORAGE_BASE_DIRECTORY}/${maildir}
 userPassword: ${PASSWD}
-cn: ${USERNAME}
 givenName: ${GIVENNAME}
 sn: ${SN}
-displayName: ${GIVENNAME} ${SN}
+cn: ${GIVENNAME} ${SN}
 uid: ${USERNAME}
 shadowLastChange: ${DAYS_SINCE_EPOCH}
 amavisLocal: TRUE
