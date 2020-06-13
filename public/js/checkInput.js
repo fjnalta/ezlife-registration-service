@@ -120,7 +120,7 @@ function registerUser() {
                     $("#registrationStatus").css('color', 'green');
                     disableFields();
                     setTimeout(function(){
-                        location.href('/');
+                        location.href('https://ezlife.eu');
                     }, 1000)
                 },
                 error: function() {
