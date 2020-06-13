@@ -29,14 +29,14 @@ function checkUserDetails() {
 
 
     $("#name").on("keyup", function () {
-        if ($(this).val().length < 0) {
+        if ($(this).val().length < 3) {
             $(this).removeClass("is-valid").addClass("is-invalid");
         } else {
             $(this).removeClass("is-invalid").addClass("is-valid");
         }
     });
     $("#surname").on("keyup", function () {
-        if ($(this).val().length < 0) {
+        if ($(this).val().length < 3) {
             $(this).removeClass("is-valid").addClass("is-invalid");
         } else {
             $(this).removeClass("is-invalid").addClass("is-valid");
@@ -70,7 +70,9 @@ function checkPasswords() {
 }
 
 function checkEmail() {
-    let isMatch = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test($("#email").val());
+    //let isMatch = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test($("#email").val());
+    let isMatch = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test($("#email").val());
+
     if (isMatch) {
         $("#email").removeClass("is-invalid").addClass("is-valid");
 
