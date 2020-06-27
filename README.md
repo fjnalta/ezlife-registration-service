@@ -72,3 +72,4 @@ The password policy can be adjusted for front- and backend.
 
 ## License
 
+* [GNU GENERAL PUBLIC LICENSE](https://gitlab.ezlife.eu/fjnalta/ezlife-registration-service/-/blob/master/LICENSE)
