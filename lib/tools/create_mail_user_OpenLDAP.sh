@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
-# Author:   Philipp Minges
-# Purpose:  Add new OpenLDAP user for postfix mail server.
+# Author:   Zhang Huangbin (zhb _at_ iredmail.org)
+# Modified by: Philipp Minges
+# Purpose:  Add new OpenLDAP user for postfix mail server. Adjusted to ezlife architecture.
 
 TOOLSDIR=$(pwd)/lib/tools
 
@@ -19,7 +20,7 @@ STORAGE_BASE_DIRECTORY="/var/vmail/vmail1"
 # -------------------------------------------------------------------
 # -------------------------- LDAP Settings --------------------------
 # -------------------------------------------------------------------
-LDAP_SUFFIX="dc=ezlife,dc=eu"
+LDAP_SUFFIX="dc=example,dc=com"
 
 # Setting 'BASE_DN'.
 BASE_DN="o=domains,${LDAP_SUFFIX}"
@@ -27,7 +28,7 @@ BASE_DN="o=domains,${LDAP_SUFFIX}"
 # Setting 'DOMAIN_NAME' and DOMAIN_DN':
 #     * DOMAIN will be used in mail address: ${USERNAME}@${DOMAIN}
 #     * DOMAIN_DN will be used in LDAP dn.
-DOMAIN_NAME="ezlife.eu"
+DOMAIN_NAME="example.com"
 DOMAIN_DN="domainName=${DOMAIN_NAME}"
 OU_USER_DN="ou=Users"
 
@@ -36,7 +37,7 @@ OU_USER_DN="ou=Users"
 BINDDN="cn=Manager,${LDAP_SUFFIX}"
 
 # Setting rootpw of LDAP.
-BINDPW='tERRUCJyzpNEH3wI5nY5SwkRXKyhEX'
+BINDPW='rootpw'
 
 # ---------- Virtual Domains & Users --------------
 # Set default quota for LDAP users: 104857600 = 100M

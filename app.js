@@ -54,7 +54,6 @@ app.get('/', keycloak.protect(), (req, res) => {
 });
 
 app.get('/register', keycloak.checkSso(), registrationHandler.checkLogin);
-
 app.post('/register', inputHandler.handleRegistrationInput, captchaHandler.verifyToken, registrationHandler.register);
 
 // start server

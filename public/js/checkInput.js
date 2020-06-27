@@ -1,14 +1,8 @@
 $(document).ready(function () {
-    handleGoogleReCaptcha();
-
     checkUserDetails();
     checkPasswords();
     checkEverythingValid();
 });
-
-function handleGoogleReCaptcha(){
-
-}
 
 function checkUserDetails() {
     $("#username").on("keyup", function () {
@@ -19,9 +13,9 @@ function checkUserDetails() {
         }
         // set E-Mail
         if ($(this).val().length > 0) {
-            $("#email").val($(this).val() + "@ezlife.eu");
+            $("#email").val($(this).val() + "@example.com");
         } else {
-            $("#email").val("user@ezlife.eu");
+            $("#email").val("user@example.com");
         }
         // check E-Mail
         checkEmail();
@@ -70,18 +64,14 @@ function checkPasswords() {
 }
 
 function checkEmail() {
-    //let isMatch = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test($("#email").val());
     let isMatch = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test($("#email").val());
-
     if (isMatch) {
         $("#email").removeClass("is-invalid").addClass("is-valid");
 
     } else {
         $("#email").removeClass("is-valid").addClass("is-invalid");
     }
-
 }
-
 
 function checkEverythingValid() {
     $(document).on("keyup", function () {
@@ -103,7 +93,7 @@ function checkEverythingValid() {
 function registerUser() {
     $("#registerBtn").prop("disabled", true);
     grecaptcha.ready(function() {
-        grecaptcha.execute('6LcRJusUAAAAAPNYUKeKTunJqjeUdzDFNPsFjWnS', {action: 'homepage'}).then(function(token) {
+        grecaptcha.execute('<api-key>', {action: 'homepage'}).then(function(token) {
             $.ajax({
                 type: 'POST',
                 url: '/register',
@@ -122,7 +112,7 @@ function registerUser() {
                     $("#registrationStatus").css('color', 'green');
                     disableFields();
                     setTimeout(function(){
-                        location.href('https://ezlife.eu');
+                        window.location = 'https://example.com';
                     }, 1000)
                 },
                 error: function() {
