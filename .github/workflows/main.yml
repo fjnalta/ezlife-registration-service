@@ -23,6 +23,7 @@ jobs:
           git pull origin master
           echo "Setup Credentials"
           cp ../scripts/registration-service-config.json lib/config.json
+          cp ../scripts/create_mail_user_OpenLDAP.sh lib/tools/
           echo "Install node modules"
           npm install --save
           echo "(Re)Start node app"
