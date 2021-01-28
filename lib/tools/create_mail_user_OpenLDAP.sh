@@ -94,7 +94,6 @@ homeDirectory: ${STORAGE_BASE_DIRECTORY}/${maildir}
 mailMessageStore: ${STORAGE_NODE}/${maildir}
 mail: ${MAIL}
 mailQuota: ${QUOTA}
-maildrop: ${STORAGE_BASE_DIRECTORY}/${maildir}
 userPassword: ${PASSWD}
 givenName: ${GIVENNAME}
 sn: ${SN}
