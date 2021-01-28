@@ -112,7 +112,7 @@ function registerUser() {
                     $("#registrationStatus").css('color', 'green');
                     disableFields();
                     setTimeout(function(){
-                        window.location = 'https://example.com';
+                        window.location = 'https://settings.ezlife.eu';
                     }, 1000)
                 },
                 error: function() {
