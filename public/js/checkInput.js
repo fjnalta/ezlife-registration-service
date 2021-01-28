@@ -13,9 +13,9 @@ function checkUserDetails() {
         }
         // set E-Mail
         if ($(this).val().length > 0) {
-            $("#email").val($(this).val() + "@example.com");
+            $("#email").val($(this).val() + "@ezlife.eu");
         } else {
-            $("#email").val("user@example.com");
+            $("#email").val("user@ezlife.eu");
         }
         // check E-Mail
         checkEmail();
