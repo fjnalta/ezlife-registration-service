@@ -33,10 +33,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 app.use(session({
-    secret: 'adfiSHDFuhas7',
-    resave: false,
-    saveUninitialized: true,
-    store: memoryStore
+    secret : 'adfiSHDFuhas7',
+    resave : false,
+    saveUninitialized : true,
+    store : memoryStore,
 }));
 
 app.use(keycloak.middleware());
@@ -47,14 +47,17 @@ app.use('/node_modules', express.static('node_modules'));
 
 // set public router
 app.get('/', keycloak.protect(), (req, res) => {
-    //console.log(req.kauth.grant.access_token.content);
     res.render('index', {
-        token : req.kauth.grant.access_token.content
+        token : req.kauth.grant.access_token.content,
+        about : config.about
     });
 });
 
 app.get('/register', keycloak.checkSso(), registrationHandler.checkLogin);
+
 app.post('/register', inputHandler.handleRegistrationInput, captchaHandler.verifyToken, registrationHandler.register);
+app.post('/password', inputHandler.handlePasswordInput, captchaHandler.verifyToken, registrationHandler.changePassword);
+app.post('/delete', captchaHandler.verifyToken, registrationHandler.deleteAccount);
 
 // start server
 app.listen(config.port, function () {

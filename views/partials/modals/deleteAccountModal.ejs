@@ -1,0 +1,30 @@
+<button type="button" class="btn-danger btn-sm" data-toggle="modal" data-target="#deleteAccountModal"><i class="far fa-trash-alt"></i> Account löschen</button>
+
+<!-- deleteAccountModal -->
+<div class="modal fade" id="deleteAccountModal" tabindex="-1" role="dialog" aria-labelledby="deleteAccountModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteAccountModalLabel">Account löschen</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <h5>Möchten Sie Ihren Account wirklich löschen?</h5>
+                        <p>
+                            Dies beinhaltet die Löschung des Zugriffs auf alle ezlife Dienste.<br>
+                            Alle Daten des Benutzers werden gelöscht.
+                        </p>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer text-center">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+                <button type="button" class="btn btn-danger" onclick="deleteAccount();">Account löschen</button>
+            </div>
+        </div>
+    </div>
+</div>

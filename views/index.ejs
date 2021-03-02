@@ -1,32 +1,77 @@
-<%- include('partials/header.ejs') %>
+<%- include ('partials/header.ejs') %>
 
-<!-- include custom scripts -->
-<script src="/js/logout.js"></script>
+<!-- include additional scripts -->
+<script src="js/handleAccountSettings.js"></script>
 
-<!-- Main Content -->
+<!-- google reCaptcha -->
+<script src="https://www.google.com/recaptcha/api.js?render=6LcRJusUAAAAAPNYUKeKTunJqjeUdzDFNPsFjWnS"></script>
+
+<!-- main content -->
 <div class="container text-center">
     <div class="row">
         <div class="col">
             <h1>Account Panel</h1>
-            <br>
             <img src="/img/logo.svg" class="img-thumbnail img-fluid" height="15%" width="15%">
         </div>
     </div>
     <br>
-    <div class="dropdown-divider"></div>
-    <br>
+</div>
+<!-- general account information -->
+<div class="container text-center">
     <div class="row">
         <div class="col">
-            <h2>Account Information</h2>
-            <p>Username: <%= token.preferred_username %></p>
-            <p>Given Name: <%= token.given_name %></p>
-            <p>Surname: <%= token.family_name %></p>
+            <h2>Account</h2>
+            <p>Benutzername: <%= token.preferred_username %></p>
+            <p>Vorname: <%= token.given_name %></p>
+            <p>Nachname: <%= token.family_name %></p>
             <p>E-Mail: <%= token.email %></p>
         </div>
     </div>
-    <br>
-    <div class="dropdown-divider"></div>
+</div>
+<!-- email configuration -->
+<div class="container text-center">
+    <div class="row">
+        <div class="col">
+            <h2>Email Konfiguration</h2>
+            <h3>Ausgehender E-Mail Server (SMTP)</h3>
+            <p><strong>Host:</strong> ezlife.eu </p>
+            <p><strong>Port:</strong> 587</p>
+            <p>Transportverschlüsselung: auto</p>
+            <h3>Eingehender E-Mail Server (IMAP)</h3>
+            <p><strong>Host:</strong> ezlife.eu </p>
+            <p><strong>Port:</strong> 993</p>
+            <p>Transportverschlüsselung: SSL/TLS</p>
+        </div>
+    </div>
+</div>
+
+
+<!-- account settings -->
+<div class="container text-center">
+    <div class="row">
+        <div class="col">
+            <h2>Einstellungen</h2>
+            <h3>Passwort ändern</h3>
+            <p>Ändern des Passworts für alle ezlife Dienste</p>
+            <form>
+                <%- include ('partials/modals/passwordModal.ejs') -%>
+            </form>
+            <br>
+            <h3>Logout</h3>
+            <p>Beenden der aktuellen Sitzung</p>
+            <button type="button" class="btn-info btn-sm" onclick="logout();"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            <br>
+            <br>
+            <h3>Account löschen</h3>
+            <p>Löschung des ezlife Accounts. Dies beinhaltet die Löschung des Zugriffs für alle ezlife Dienste</p>
+            <form>
+                <%- include ('partials/modals/deleteAccountModal.ejs') -%>
+            </form>
+        </div>
+    </div>
     <br>
 </div>
 
-<%- include('partials/footer.ejs') %>
+<!-- include footer -->
+<%- include ('partials/bottom.ejs') %>
+<%- include ('partials/footer.ejs') %>
