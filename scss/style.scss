@@ -1,0 +1,59 @@
+$font-primary: 'Nunito', Arial, sans-serif;
+$primary: #333333;
+$hover: #000000;
+
+@import '../node_modules/bootstrap/scss/bootstrap';
+@import '../node_modules/bootstrap/scss/variables';
+@import '../node_modules/bootstrap/scss/mixins';
+
+/* Basic Container */
+.container {
+  background-color: #f8f9fa;
+  border: 2px solid #eeeeee;
+}
+
+body {
+  font-family: $font-primary;
+  font-size: 14px;
+  font-weight: normal;
+  background: #f2f2f2;
+}
+
+a {
+  transition: .3s all ease;
+  color: #7c7c7d;
+
+  &:hover, &:focus {
+    text-decoration: none !important;
+    outline: none !important;
+    box-shadow: none;
+  }
+}
+
+button {
+  border-width: 0px;
+}
+
+.btn-ezlife {
+  color: white !important;
+  background-color: $primary;
+}
+
+.btn-ezlife:hover {
+  background: $hover;
+}
+
+h1, h2, h3, h4, h5,
+.h1, .h2, .h3, .h4, .h5 {
+  line-height: 1.5;
+  font-weight: 400;
+  font-family: $font-primary;
+  color: $black;
+}
+
+.line {
+  width: 100%;
+  height: 1px;
+  border-bottom: 1px dashed #ddd;
+  margin: 40px 0;
+}
