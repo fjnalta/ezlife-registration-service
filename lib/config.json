@@ -4,12 +4,21 @@
   "reCaptchaSiteKey": "yourReCaptchaSiteKey",
   "keycloak": {
     "realm": "example realm",
-    "auth-server-url": "https://keycloak.ezlife.eu/auth/",
+    "auth-server-url": "https://keycloak.domain.org/auth/",
     "ssl-required": "external",
     "resource": "example.com",
     "credentials": {
-      "secret": "keycloak secret"
+      "secret": "keycloak-secret"
     },
     "confidential-port": 0
+  },
+  "about" : {
+    "name": "Vorname Nachname",
+    "address": "Straße 123",
+    "town": "Stadt",
+    "postalCode": 11111,
+    "country": "Land",
+    "homepage": "domain.org",
+    "email": "example@example.com"
   }
 }
