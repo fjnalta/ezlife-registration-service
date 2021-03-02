@@ -20,6 +20,7 @@ jobs:
           echo "Change working directory"
           cd ezlife-registration-service
           echo "Update repository files"
+          git reset --hard
           git pull origin master
           echo "Setup Credentials"
           cp ../scripts/registration-service-config.json lib/config.json
