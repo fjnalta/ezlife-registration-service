@@ -1,6 +1,5 @@
 function changePassword() {
     grecaptcha.ready(function () {
-        console.log('called');
         grecaptcha.execute('6LcRJusUAAAAAPNYUKeKTunJqjeUdzDFNPsFjWnS', { action: 'homepage' }).then(function (token) {
             $.ajax({
                 type: 'POST',
