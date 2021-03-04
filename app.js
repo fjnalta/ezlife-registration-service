@@ -56,8 +56,8 @@ app.get('/', keycloak.protect(), (req, res) => {
 app.get('/register', keycloak.checkSso(), registrationHandler.checkLogin);
 
 app.post('/register', inputHandler.handleRegistrationInput, captchaHandler.verifyToken, registrationHandler.register);
-app.post('/password', inputHandler.handlePasswordInput, captchaHandler.verifyToken, registrationHandler.changePassword);
-app.post('/delete', captchaHandler.verifyToken, registrationHandler.deleteAccount);
+app.post('/password', keycloak.protect(), inputHandler.handlePasswordInput, captchaHandler.verifyToken, registrationHandler.changePassword);
+app.post('/delete', keycloak.protect(), captchaHandler.verifyToken, registrationHandler.deleteAccount);
 
 // start server
 app.listen(config.port, function () {

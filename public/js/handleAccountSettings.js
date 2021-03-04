@@ -1,9 +1,26 @@
 function changePassword() {
-    // TODO - implementation
-    console.log($('#currentPasswordInput').val());
-    console.log($('#newPasswordInput').val());
-    console.log($('#repeatPasswordInput').val());
-
+    grecaptcha.ready(function () {
+        console.log('called');
+        grecaptcha.execute('6LcRJusUAAAAAPNYUKeKTunJqjeUdzDFNPsFjWnS', { action: 'homepage' }).then(function (token) {
+            $.ajax({
+                type: 'POST',
+                url: '/password',
+                data: {
+                    'token' : token,
+                    'username' : $('#username').text(),
+                    'password' : $('#currentPasswordInput').val(),
+                    'newPassword' : $('#newPasswordInput').val(),
+                    'newPassword2' : $('#repeatPasswordInput').val()
+                },
+                success: function() {
+                    console.log('success');
+                },
+                error: function () {
+                    console.log('failed');
+                }
+            });
+        });
+    });
 }
 
 function deleteAccount() {

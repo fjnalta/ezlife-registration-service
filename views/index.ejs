@@ -1,10 +1,7 @@
 <%- include ('partials/header.ejs') %>
 
-<!-- include additional scripts -->
-<script src="js/handleAccountSettings.js"></script>
-
-<!-- google reCaptcha -->
-<script src="https://www.google.com/recaptcha/api.js?render=6LcRJusUAAAAAPNYUKeKTunJqjeUdzDFNPsFjWnS"></script>
+<!-- include custom scripts -->
+<script src="/js/checkSettingsInput.js"></script>
 
 <!-- main content -->
 <div class="container text-center">
@@ -21,7 +18,7 @@
     <div class="row">
         <div class="col">
             <h2>Account</h2>
-            <p>Benutzername: <%= token.preferred_username %></p>
+            <p>Benutzername: <span id="username"><%= token.preferred_username %></span></p>
             <p>Vorname: <%= token.given_name %></p>
             <p>Nachname: <%= token.family_name %></p>
             <p>E-Mail: <%= token.email %></p>
@@ -71,6 +68,9 @@
     </div>
     <br>
 </div>
+
+<!-- include additional scripts -->
+<script src="js/handleAccountSettings.js"></script>
 
 <!-- include footer -->
 <%- include ('partials/bottom.ejs') %>
