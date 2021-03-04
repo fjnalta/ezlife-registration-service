@@ -111,15 +111,14 @@ function registerUser() {
                     $("#registrationStatus").css("font-weight","Bold");
                     $("#registrationStatus").css('color', 'green');
                     disableFields();
-                    setTimeout(function(){
-                        window.location = 'https://settings.ezlife.eu';
-                    }, 1000)
+                    // TODO - popup
                 },
                 error: function() {
                     $("#registrationStatus").text("Registrierung fehlgeschlagen! - Bitte versuchen Sie einen anderen Benutzernamen");
                     $("#registrationStatus").css("font-weight","Bold");
                     $("#registrationStatus").css('color', 'red');
                     emptyFields();
+                    // TODO - popup
                 }
             });
         });

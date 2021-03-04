@@ -1,5 +1,6 @@
 $(document).ready(function () {
     checkPasswordInput();
+    checkEverythingValid();
 });
 
 function checkPasswordInput() {
@@ -29,6 +30,19 @@ function checkPasswordInput() {
             $(this).removeClass("is-invalid").addClass("is-valid");
         } else {
             $(this).removeClass("is-valid").addClass("is-invalid");
+        }
+    });
+}
+
+function checkEverythingValid() {
+    $(document).on("keyup", function () {
+        if(
+            $("#newPasswordInput").hasClass("is-valid") &&
+            $("#repeatPasswordInput").hasClass("is-valid")
+        ) {
+            $("#changePasswordBtn").prop("disabled", false);
+        } else {
+            $("#changePasswordBtn").prop("disabled", true);
         }
     });
 }
