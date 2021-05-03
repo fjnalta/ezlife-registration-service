@@ -47,11 +47,26 @@ function disableForms() {
 }
 
 function deleteAccount() {
-    // TODO - implementation
-    console.log('delete Account');
-}
-
-function logout() {
-    // TODO - implementation
-    console.log('logout');
+    grecaptcha.ready(function () {
+        grecaptcha.execute('6LcRJusUAAAAAPNYUKeKTunJqjeUdzDFNPsFjWnS', { action: 'homepage' }).then(function (token) {
+            $.ajax({
+                type: 'POST',
+                url: '/delete',
+                data: {
+                    'token' : token,
+                    'username' : $('#username').text()
+                },
+                success: function() {
+                    $("#accountDeleteStatus").text("Account wurde erfolgreich gelöscht");
+                    $("#accountDeleteStatus").css("font-weight","Bold");
+                    $("#accountDeleteStatus").css('color', 'green');
+                },
+                error: function () {
+                    $("#accountDeleteStatus").text("Accountlöschung fehlgeschlagen");
+                    $("#accountDeleteStatus").css("font-weight","Bold");
+                    $("#accountDeleteStatus").css('color', 'red');
+                }
+            });
+        });
+    });
 }
