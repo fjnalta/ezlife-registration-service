@@ -36,7 +36,7 @@ app.use(session({
     secret : 'adfiSHDFuhas7',
     resave : false,
     saveUninitialized : true,
-    store : memoryStore,
+    store : memoryStore
 }));
 
 app.use(keycloak.middleware());
