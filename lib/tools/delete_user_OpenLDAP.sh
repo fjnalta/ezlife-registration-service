@@ -49,4 +49,4 @@ EOF
 USERNAME="$(echo $1 | tr [A-Z] [a-z])"
 
 # Delete User from LDAP
-change_password ${USERNAME}
+delete_user ${USERNAME}
