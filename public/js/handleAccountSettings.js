@@ -60,6 +60,7 @@ function deleteAccount() {
                     $("#accountDeleteStatus").text("Account wurde erfolgreich gelöscht");
                     $("#accountDeleteStatus").css("font-weight","Bold");
                     $("#accountDeleteStatus").css('color', 'green');
+                    location.reload();
                 },
                 error: function () {
                     $("#accountDeleteStatus").text("Accountlöschung fehlgeschlagen");
